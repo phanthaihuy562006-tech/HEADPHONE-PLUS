@@ -1,0 +1,86 @@
+/* ===== transitions.css – Chuyển đổi giữa các màn hình ===== */
+
+/* --- Lớp nền cho mọi màn hình --- */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
+}
+
+/* Màn hình đang hiển thị */
+.screen.active {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- Trượt ra bên trái --- */
+.screen.slide-out-left {
+    transform: translateX(-30%) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- Trượt ra bên phải --- */
+.screen.slide-out-right {
+    transform: translateX(30%) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- Trượt vào từ bên phải --- */
+.screen.slide-in-right {
+    transform: translateX(30%) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+}
+.screen.slide-in-right.active {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- Trượt vào từ bên trái --- */
+.screen.slide-in-left {
+    transform: translateX(-30%) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+}
+.screen.slide-in-left.active {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- Mờ dần (Fade) --- */
+.screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+.screen.fade-in {
+    opacity: 0;
+    pointer-events: none;
+}
+.screen.fade-in.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- Hiệu ứng nhấn (tap) cho nút --- */
+.tap-effect {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+}
+.tap-effect:active {
+    transform: scale(0.96);
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+}
