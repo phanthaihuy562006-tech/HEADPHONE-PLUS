@@ -1,8 +1,8 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #555555;
-    color: #D7D3CF;
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: #0a0a0a;
+    color: #d0d0d0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,234 +14,155 @@ body {
     width: 380px;
     height: 740px;
     padding: 20px;
-    background-color: #1A1A1A;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    background-color: #181818;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04);
     text-align: center;
-    animation: assembleContainer 1s ease-out forwards;
+    animation: assembleContainer 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     position: relative;
 }
-
 @keyframes assembleContainer {
-    0% {
-        transform: translate(-50%, -50%) scale(0.5) rotate(10deg);
-        opacity: 0;
-    }
-    70% {
-        transform: translate(10%, 10%) scale(1.1) rotate(-5deg);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translate(0, 0) scale(1) rotate(0deg);
-        opacity: 1;
-    }
+    0% { transform: translate(-20%, -20%) scale(0.6) rotate(6deg); opacity: 0; }
+    70% { transform: translate(5%, 5%) scale(1.05) rotate(-3deg); opacity: 0.8; }
+    100% { transform: translate(0,0) scale(1) rotate(0deg); opacity: 1; }
 }
 
 header {
-    animation: puzzleDrop 0.8s ease-out 0.2s forwards;
+    animation: puzzleDrop 0.8s ease 0.2s forwards;
     opacity: 0;
     transform-origin: top;
 }
-
 @keyframes puzzleDrop {
-    0% {
-        transform: translateY(-100px) rotate(-15deg);
-        opacity: 0;
-    }
-    70% {
-        transform: translateY(20px) rotate(5deg);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
+    0% { transform: translateY(-80px) rotate(-10deg); opacity: 0; }
+    70% { transform: translateY(10px) rotate(3deg); opacity: 0.7; }
+    100% { transform: translateY(0) rotate(0deg); opacity: 1; }
 }
 
 header h1 {
-    font-size: 25px;
+    font-size: 24px;
     position: absolute;
-    top: -28px;
-    font-weight: bold;
-    background: linear-gradient(90deg, black, White, WhiteSmoke, Gainsboro);
-    background-size: 500%;
+    top: -26px;
+    font-weight: 500;
+    background: linear-gradient(135deg, #f0f0f0, #b0b0b0, #f0f0f0);
+    background-size: 300%;
     -webkit-background-clip: text;
     color: transparent;
-    animation: rainbow 4s ease infinite;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: shimmer 4s ease infinite;
 }
-@keyframes rainbow {
+@keyframes shimmer {
     0% { background-position: 0%; }
     50% { background-position: 50%; }
     100% { background-position: 100%; }
-  }
-.done-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #000000;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    color: #fff;
-    font-size: 14px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
 }
 
+.done-button {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: #2a2a2a;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 6px 16px;
+    color: #ccc;
+    font-size: 13px;
+    text-decoration: none;
+    transition: background 0.25s, border-color 0.25s, transform 0.15s;
+}
 .done-button:hover {
-    background-color: #5a5a8e;
-    transform: scale(1.05);
+    background: #3a3a3a;
+    border-color: #666;
+    transform: scale(1.04);
 }
 
 .info-section {
     margin-top: 100px;
-    animation: puzzleSlideLeft 0.8s ease-out forwards;
+    animation: puzzleSlideLeft 0.8s ease forwards;
     opacity: 0;
     transform-origin: left;
 }
-
-.info-section:nth-child(1) { animation-delay: 0.4s; }
-.info-section:nth-child(2) { animation-delay: 0.6s; }
-.info-section:nth-child(3) { animation-delay: 0.8s; }
-
+.info-section:nth-child(1) { animation-delay: 0.35s; }
+.info-section:nth-child(2) { animation-delay: 0.55s; }
+.info-section:nth-child(3) { animation-delay: 0.75s; }
 @keyframes puzzleSlideLeft {
-    0% {
-        transform: translateX(-150px) rotate(20deg);
-        opacity: 0;
-    }
-    70% {
-        transform: translateX(20px) rotate(-5deg);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateX(0) rotate(0deg);
-        opacity: 1;
-    }
+    0% { transform: translateX(-120px) rotate(12deg); opacity: 0; }
+    70% { transform: translateX(15px) rotate(-3deg); opacity: 0.7; }
+    100% { transform: translateX(0) rotate(0deg); opacity: 1; }
 }
-
 .info-section p {
-    margin: 5px 0;
+    margin: 6px 0;
     font-size: 14px;
 }
-
-.verified {
-    color: #1da1f2;
-}
+.verified { color: #1da1f2; }
 
 .social-links {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     margin: 20px 0;
 }
-
 .social-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
-    background-color: #555555;
-    border-radius: 5px;
-    margin: 10px;
+    padding: 14px;
+    background-color: #242424;
+    border-radius: 30px;
+    margin: 4px 10px;
     text-decoration: none;
-    color: #fff;
+    color: #e8e8e8;
     font-size: 14px;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    animation: glowing 1.5s infinite alternate;
+    border: 1px solid #2a2a2a;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.3s;
+    animation: softGlow 2.5s infinite alternate;
 }
-
-/* Hiệu ứng sáng chạy quanh viền */
-@keyframes glowing {
-    0% {
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
-    }
-    50% {
-        box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
-    }
-    100% {
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
-    }
+@keyframes softGlow {
+    0% { box-shadow: 0 0 4px rgba(255,255,255,0.03), 0 0 10px rgba(255,255,255,0.02); }
+    100% { box-shadow: 0 0 10px rgba(255,255,255,0.06), 0 0 20px rgba(255,255,255,0.03); }
 }
-
 .social-link:hover {
-    background-color: #3a3a6e;
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1);
+    background: #333;
+    transform: scale(1.02);
+    box-shadow: 0 0 14px rgba(255,255,255,0.08), 0 0 28px rgba(255,255,255,0.04);
 }
-
-.social-link i {
-    margin-right: 10px;
-    font-size: 18px;
-}
-
+.social-link i { margin-right: 12px; font-size: 18px; }
 
 .update-section {
-    background-color: #000000;
-    padding: 15px;
-    border-radius: 5px;
+    background-color: #1a1a1a;
+    padding: 16px;
+    border-radius: 16px;
     margin: 40px 0;
-    animation: puzzleSlideRight 0.8s ease-out 1.0s forwards, pulse 2s infinite;
+    animation: puzzleSlideRight 0.8s ease 0.9s forwards, pulse 2s infinite;
     opacity: 0;
     transform-origin: right;
+    border: 1px solid #2a2a2a;
 }
-
 @keyframes puzzleSlideRight {
-    0% {
-        transform: translateX(150px) rotate(-20deg);
-        opacity: 0;
-    }
-    70% {
-        transform: translateX(-20px) rotate(5deg);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateX(0) rotate(0deg);
-        opacity: 1;
-    }
+    0% { transform: translateX(120px) rotate(-12deg); opacity: 0; }
+    70% { transform: translateX(-15px) rotate(3deg); opacity: 0.7; }
+    100% { transform: translateX(0) rotate(0deg); opacity: 1; }
 }
-
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.03);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
 }
-
 .update-section p {
-    margin: 5px 0;
-    font-size: 14px;
+    margin: 4px 0;
+    font-size: 13px;
+    color: #aaa;
 }
 
 footer {
-    animation: puzzleRise 0.8s ease-out 1.2s forwards;
+    animation: puzzleRise 0.8s ease 1.1s forwards;
     opacity: 0;
     transform-origin: bottom;
 }
-
 @keyframes puzzleRise {
-    0% {
-        transform: translateY(100px) rotate(15deg);
-        opacity: 0;
-    }
-    70% {
-        transform: translateY(-20px) rotate(-5deg);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
+    0% { transform: translateY(80px) rotate(8deg); opacity: 0; }
+    70% { transform: translateY(-10px) rotate(-3deg); opacity: 0.7; }
+    100% { transform: translateY(0) rotate(0deg); opacity: 1; }
 }
-
 footer p {
-    margin: 5px 0;
-    font-size: 12px;
-    color: #aaa;
+    margin: 4px 0;
+    font-size: 11px;
+    color: #555;
 }
