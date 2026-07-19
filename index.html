@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nguyenlong メ LiOS</title>
     <link rel="stylesheet" href="./styles/style.css">
-    <!-- Thêm transitions.css -->
+    <!-- LIÊN KẾT transitions.css -->
     <link rel="stylesheet" href="./styles/transitions.css">
     <link rel="manifest" href="/manifest.json">
-
     <style>
         /* Giữ nguyên style cũ */
         .message {
@@ -25,9 +24,9 @@
             overflow: hidden;
         }
 
-        /* Đảm bảo login-screen hiển thị đúng khi có class active */
+        /* Ghi đè display:none của login-screen từ style.css */
         .login-screen {
-            display: block !important; /* ghi đè display:none cũ */
+            display: block !important;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.5s ease;
@@ -37,7 +36,7 @@
             pointer-events: auto;
         }
 
-        /* Loading text nhấp nháy */
+        /* Style cho loading text */
         .loading-text {
             margin-top: 30px;
             font-size: 18px;
@@ -63,9 +62,9 @@
     </style>
 </head>
 <body>
-    <!-- Container chính có class page-container và id -->
+    <!-- Container chính có class page-container -->
     <div class="container page-container" id="appContainer">
-        <!-- Splash Screen – thêm class screen và active -->
+        <!-- SPLASH SCREEN: có class screen và active -->
         <div class="splash-screen screen active" id="splashScreen">
             <div class="logo">
                 <div class="target">
@@ -79,13 +78,12 @@
                 <div class="crown" style="transform: rotate(30deg);">👑</div>
             </div>
             <h1>HEADPHONE PLUS 1.0</h1>
-            <!-- Đổi thành ĐANG TẢI DỮ LIỆU -->
             <p class="loading-text">
                 ĐANG TẢI DỮ LIỆU<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
             </p>
         </div>
 
-        <!-- Login Screen – thêm class screen (không active ban đầu) -->
+        <!-- LOGIN SCREEN: có class screen (không active ban đầu) -->
         <div class="login-screen screen" id="loginScreen">
             <h1>NHẬP KEY
                 <span class="crown" style="transform: rotate(30deg);">👑</span>
