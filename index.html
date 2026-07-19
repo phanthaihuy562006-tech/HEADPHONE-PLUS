@@ -4,14 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nguyenlong メ LiOS</title>
+    <!-- link CSS gốc -->
     <link rel="stylesheet" href="./styles/style.css" />
+    <!-- thêm transitions.css để có hiệu ứng xoay -->
     <link rel="stylesheet" href="./styles/transitions.css" />
     <link rel="manifest" href="/manifest.json" />
     <style>
-        .message { margin-top: 10px; font-size: 16px; text-align: center; }
+        /* style nhỏ cho message */
+        .message {
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: center;
+        }
         .success { color: #4caf50; }
         .error   { color: #e74c3c; }
-        .container { position: relative; overflow: hidden; }
+        /* đảm bảo container có position relative để .screen absolute */
+        .container {
+            position: relative;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +42,9 @@
                     <div class="crown" style="transform: rotate(30deg);">👑</div>
                 </div>
                 <h1>HEADPHONE PLUS 1.0</h1>
-                <p style="position: fixed; bottom: 130px; font-size: 20px;">Version 1.0</p>
+                <p class="loading-text">
+                    ĐANG TẢI DỮ LIỆU<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+                </p>
             </div>
         </div>
 
@@ -85,7 +98,7 @@
                     messageDiv.className = 'message success';
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('loggedInKey', keyInput);
-                    // Hiệu ứng xoay toàn container
+                    // Hiệu ứng xoay toàn container rồi chuyển
                     const container = document.getElementById('appContainer');
                     container.classList.add('rotate-out');
                     setTimeout(() => {
@@ -100,21 +113,25 @@
             }
         }
 
-        // ---- Chuyển Splash → Login với hiệu ứng xoay ----
+        // ---- Chuyển Splash → Login sau 3 giây với hiệu ứng xoay ----
         setTimeout(() => {
             const splash = document.getElementById('splashScreen');
             const login  = document.getElementById('loginScreen');
 
+            // splash xoay ra
             splash.classList.remove('active');
             splash.classList.add('rotate-out-left');
 
+            // login xoay vào và active
             login.classList.add('rotate-in-right', 'active');
         }, 3000);
 
-        // ---- Service Worker ----
+        // ---- Service Worker (nếu có) ----
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/js/sw.js').then(() => {
                 console.log('Service Worker registered');
+            }).catch(() => {
+                console.log('Service Worker not available');
             });
         }
     </script>
