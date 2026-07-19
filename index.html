@@ -5,28 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nguyenlong メ LiOS</title>
     <link rel="stylesheet" href="./styles/style.css">
-    <!-- THÊM transitions.css -->
+    <!-- Thêm transitions.css -->
     <link rel="stylesheet" href="./styles/transitions.css">
     <link rel="manifest" href="/manifest.json">
 
     <style>
+        /* Giữ nguyên style cũ */
         .message {
             margin-top: 10px;
             font-size: 16px;
             text-align: center;
         }
-        .success {
-            color: green;
-        }
-        .error {
-            color: red;
-        }
-        /* Đảm bảo container có position relative để .screen absolute */
+        .success { color: green; }
+        .error { color: red; }
+
+        /* Bổ sung để container hỗ trợ absolute positioning */
         .container {
             position: relative;
             overflow: hidden;
         }
-        /* Thêm style cho loading text nếu có */
+
+        /* Đảm bảo login-screen hiển thị đúng khi có class active */
+        .login-screen {
+            display: block !important; /* ghi đè display:none cũ */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        .login-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Loading text nhấp nháy */
         .loading-text {
             margin-top: 30px;
             font-size: 18px;
@@ -52,9 +63,9 @@
     </style>
 </head>
 <body>
-    <!-- THÊM class page-container và id appContainer -->
+    <!-- Container chính có class page-container và id -->
     <div class="container page-container" id="appContainer">
-        <!-- Splash Screen - THÊM class screen và active -->
+        <!-- Splash Screen – thêm class screen và active -->
         <div class="splash-screen screen active" id="splashScreen">
             <div class="logo">
                 <div class="target">
@@ -68,13 +79,13 @@
                 <div class="crown" style="transform: rotate(30deg);">👑</div>
             </div>
             <h1>HEADPHONE PLUS 1.0</h1>
-            <!-- ĐỔI thành ĐANG TẢI DỮ LIỆU theo yêu cầu -->
+            <!-- Đổi thành ĐANG TẢI DỮ LIỆU -->
             <p class="loading-text">
                 ĐANG TẢI DỮ LIỆU<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
             </p>
         </div>
 
-        <!-- Login Screen - THÊM class screen -->
+        <!-- Login Screen – thêm class screen (không active ban đầu) -->
         <div class="login-screen screen" id="loginScreen">
             <h1>NHẬP KEY
                 <span class="crown" style="transform: rotate(30deg);">👑</span>
@@ -103,7 +114,7 @@
             localStorage.setItem('deviceID', deviceID);
         }
 
-        // ---- Kiểm tra key (giữ nguyên logic) ----
+        // ---- Kiểm tra key ----
         async function checkKey() {
             const keyInput = document.getElementById('keyInput').value;
             const messageDiv = document.getElementById('message');
@@ -111,9 +122,7 @@
             try {
                 const response = await fetch('https://api-keys-6a7x.onrender.com/login', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ key: keyInput, deviceID }),
                 });
 
@@ -124,7 +133,7 @@
                     messageDiv.className = 'message success';
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('loggedInKey', keyInput);
-                    // SỬA: thêm hiệu ứng xoay trước khi chuyển
+                    // Hiệu ứng xoay toàn container trước khi chuyển
                     const container = document.getElementById('appContainer');
                     container.classList.add('rotate-out');
                     setTimeout(() => {
@@ -139,21 +148,20 @@
             }
         }
 
-        // ---- Chuyển Splash → Login với hiệu ứng xoay (THAY THẾ fade cũ) ----
+        // ---- Chuyển Splash → Login sau 3 giây với hiệu ứng xoay ----
         setTimeout(() => {
-            const splashScreen = document.getElementById('splashScreen');
-            const loginScreen = document.getElementById('loginScreen');
-            
-            // Xóa class active của splash
-            splashScreen.classList.remove('active');
-            // Thêm class xoay ra
-            splashScreen.classList.add('rotate-out-left');
-            
-            // Thêm class xoay vào + active cho login
-            loginScreen.classList.add('rotate-in-right', 'active');
+            const splash = document.getElementById('splashScreen');
+            const login  = document.getElementById('loginScreen');
+
+            // Xóa active của splash, thêm class xoay ra
+            splash.classList.remove('active');
+            splash.classList.add('rotate-out-left');
+
+            // Thêm class xoay vào và active cho login
+            login.classList.add('rotate-in-right', 'active');
         }, 3000);
 
-        // ---- Service Worker (giữ nguyên) ----
+        // ---- Service Worker ----
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/js/sw.js').then(() => {
                 console.log('Service Worker registered');
