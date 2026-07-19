@@ -1,3 +1,4 @@
+/* ===== info.css – Thông tin ===== */
 body {
     margin: 0;
     font-family: 'Inter', Arial, sans-serif;
@@ -20,6 +21,7 @@ body {
     text-align: center;
     animation: assembleContainer 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     position: relative;
+    overflow: hidden;
 }
 @keyframes assembleContainer {
     0% { transform: translate(-20%, -20%) scale(0.6) rotate(6deg); opacity: 0; }
