@@ -1,3 +1,4 @@
+/* ===== menu.css – Menu chính ===== */
 body {
     margin: 0;
     font-family: 'Inter', Arial, sans-serif;
@@ -20,6 +21,7 @@ body {
     text-align: center;
     animation: slideIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     position: relative;
+    overflow: hidden;
 }
 
 @keyframes slideIn {
