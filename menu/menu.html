@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nguyenlong メ LiOS</title>
     <link rel="stylesheet" href="../styles/menu.css">
+    <!-- THÊM transitions.css -->
     <link rel="stylesheet" href="../styles/transitions.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
 </head>
 <body>
-    <!-- Thêm class page-container và rotate-in để hiệu ứng xoay khi vào -->
+    <!-- THÊM class page-container rotate-in vào container -->
     <div class="container page-container rotate-in" id="appContainer">
         <header>
             <div>
@@ -18,7 +19,7 @@
                 <p class="author">By Nguyenlong メ LiOS <span class="verified">👑</span></p>
             </div>
             <div class="menu">
-                <!-- Đổi href thành # và dùng JavaScript để chuyển có hiệu ứng -->
+                <!-- ĐỔI href thành # để dùng JS -->
                 <a href="#" id="infoLink" class="info-button">
                     <i class="fas fa-info"></i>
                 </a>
@@ -74,12 +75,11 @@
     </div>
 
     <script>
-        // ---- Kiểm tra đăng nhập ----
         if (!localStorage.getItem('isLoggedIn')) {
             window.location.href = '/';
         }
 
-        // ---- Chuyển sang info.html với hiệu ứng xoay ----
+        // ---- THÊM: chuyển sang info.html với hiệu ứng xoay ----
         document.getElementById('infoLink').addEventListener('click', function(e) {
             e.preventDefault();
             const container = document.getElementById('appContainer');
@@ -90,7 +90,6 @@
             }, 600);
         });
 
-        // ---- Service Worker ----
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/js/sw.js').then(() => {
                 console.log('Service Worker registered');
