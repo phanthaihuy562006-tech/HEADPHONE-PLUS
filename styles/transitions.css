@@ -1,6 +1,38 @@
-/* ===== transitions.css – Chuyển đổi giữa các màn hình ===== */
+/* ===== transitions.css – Hiệu ứng xoay (Flip 3D) ===== */
 
-/* --- Lớp nền cho mọi màn hình --- */
+/* Container chính của mỗi trang */
+.page-container {
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: perspective(800px) rotateY(0deg) scale(1);
+    opacity: 1;
+    transform-origin: center center;
+}
+
+/* Khi rời đi – xoay sang phải và mờ */
+.page-container.rotate-out {
+    transform: perspective(800px) rotateY(90deg) scale(0.85);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Khi xuất hiện – xoay từ trái vào */
+.page-container.rotate-in {
+    animation: rotateIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes rotateIn {
+    0% {
+        transform: perspective(800px) rotateY(-90deg) scale(0.85);
+        opacity: 0;
+    }
+    100% {
+        transform: perspective(800px) rotateY(0deg) scale(1);
+        opacity: 1;
+    }
+}
+
+/* ---- Các class dành cho màn hình con (single‑page) ---- */
 .screen {
     position: absolute;
     top: 0;
@@ -9,73 +41,63 @@
     height: 100%;
     padding: 20px;
     box-sizing: border-box;
-    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     will-change: transform, opacity;
     backface-visibility: hidden;
-    overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transform: perspective(600px) rotateY(-90deg) scale(0.8);
 }
 
-/* Màn hình đang hiển thị */
 .screen.active {
-    transform: translateX(0) scale(1);
+    transform: perspective(600px) rotateY(0deg) scale(1);
     opacity: 1;
     pointer-events: auto;
 }
 
-/* --- Trượt ra bên trái --- */
-.screen.slide-out-left {
-    transform: translateX(-30%) scale(0.95);
+/* Xoay ra các hướng */
+.screen.rotate-out-left {
+    transform: perspective(600px) rotateY(90deg) scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+}
+.screen.rotate-out-right {
+    transform: perspective(600px) rotateY(-90deg) scale(0.8);
     opacity: 0;
     pointer-events: none;
 }
 
-/* --- Trượt ra bên phải --- */
-.screen.slide-out-right {
-    transform: translateX(30%) scale(0.95);
+/* Xoay vào các hướng */
+.screen.rotate-in-right {
+    transform: perspective(600px) rotateY(90deg) scale(0.8);
     opacity: 0;
     pointer-events: none;
 }
-
-/* --- Trượt vào từ bên phải --- */
-.screen.slide-in-right {
-    transform: translateX(30%) scale(0.95);
-    opacity: 0;
-    pointer-events: none;
-}
-.screen.slide-in-right.active {
-    transform: translateX(0) scale(1);
+.screen.rotate-in-right.active {
+    transform: perspective(600px) rotateY(0deg) scale(1);
     opacity: 1;
     pointer-events: auto;
 }
 
-/* --- Trượt vào từ bên trái --- */
-.screen.slide-in-left {
-    transform: translateX(-30%) scale(0.95);
+.screen.rotate-in-left {
+    transform: perspective(600px) rotateY(-90deg) scale(0.8);
     opacity: 0;
     pointer-events: none;
 }
-.screen.slide-in-left.active {
-    transform: translateX(0) scale(1);
+.screen.rotate-in-left.active {
+    transform: perspective(600px) rotateY(0deg) scale(1);
     opacity: 1;
     pointer-events: auto;
 }
 
-/* --- Mờ dần (Fade) --- */
-.screen.fade-out {
-    opacity: 0;
-    pointer-events: none;
-}
-.screen.fade-in {
-    opacity: 0;
-    pointer-events: none;
-}
-.screen.fade-in.active {
-    opacity: 1;
-    pointer-events: auto;
-}
+/* Fade đơn giản (vẫn giữ) */
+.screen.fade-out { opacity: 0; pointer-events: none; }
+.screen.fade-in { opacity: 0; pointer-events: none; }
+.screen.fade-in.active { opacity: 1; pointer-events: auto; }
 
-/* --- Hiệu ứng nhấn (tap) cho nút --- */
+/* Hiệu ứng nhấn (tap) */
 .tap-effect {
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     cursor: pointer;
